@@ -1,0 +1,744 @@
+<title>Candidature Artiste — International (proposition fond émeraude / or)</title>
+<style>
+  /* ============ TOKENS ============ */
+  /* Choix assumé : un seul univers visuel (fond émeraude, écriture et boutons en or),
+     identique quel que soit le thème clair/sombre du visiteur — comme un écrin. */
+  :root{
+    --paper:#0b3b2b;
+    --paper-raised:#0f4736;
+    --ink:#e3c878;
+    --ink-soft:#b9a06a;
+    --brass:#e6c15a;
+    --brass-strong:#f5d67e;
+    --brass-tint:#1f4a35;
+    --oxblood:#e8828c;
+    --oxblood-tint:#3a1720;
+    --forest:#6fe6ae;
+    --forest-tint:#123a2c;
+    --line:#3c6b52;
+    --select-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23e6c15a' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#0b3b2b; --paper-raised:#0f4736; --ink:#e3c878; --ink-soft:#b9a06a;
+      --brass:#e6c15a; --brass-strong:#f5d67e; --brass-tint:#1f4a35;
+      --oxblood:#e8828c; --oxblood-tint:#3a1720; --forest:#6fe6ae; --forest-tint:#123a2c;
+      --line:#3c6b52;
+      --select-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23e6c15a' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0b3b2b; --paper-raised:#0f4736; --ink:#e3c878; --ink-soft:#b9a06a;
+    --brass:#e6c15a; --brass-strong:#f5d67e; --brass-tint:#1f4a35;
+    --oxblood:#e8828c; --oxblood-tint:#3a1720; --forest:#6fe6ae; --forest-tint:#123a2c;
+    --line:#3c6b52;
+    --select-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23e6c15a' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  :root[data-theme="light"]{
+    --paper:#0b3b2b; --paper-raised:#0f4736; --ink:#e3c878; --ink-soft:#b9a06a;
+    --brass:#e6c15a; --brass-strong:#f5d67e; --brass-tint:#1f4a35;
+    --oxblood:#e8828c; --oxblood-tint:#3a1720; --forest:#6fe6ae; --forest-tint:#123a2c;
+    --line:#3c6b52;
+    --select-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23e6c15a' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+
+  *{box-sizing:border-box;}
+  html,body{background:var(--paper);}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    padding:40px 16px 90px;
+    background:
+      radial-gradient(1200px 500px at 15% -10%, color-mix(in srgb, var(--brass) 8%, transparent), transparent),
+      var(--paper);
+    transition:background-color .2s ease, color .2s ease;
+  }
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
+
+  .frame{
+    max-width:800px;
+    margin:0 auto;
+    position:relative;
+    padding:34px 42px 8px;
+  }
+  .frame::before,.frame::after{
+    content:"";
+    position:absolute;
+    width:26px;height:26px;
+    border-color:var(--brass);
+    opacity:.75;
+  }
+  .frame::before{top:0;left:0;border-top:1.5px solid var(--brass);border-left:1.5px solid var(--brass);}
+  .frame::after{bottom:56px;right:0;border-bottom:1.5px solid var(--brass);border-right:1.5px solid var(--brass);}
+
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+    padding-bottom:22px;
+    margin-bottom:26px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    display:block;
+    font-size:0.68rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--brass-strong);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:Iowan Old Style,Palatino Linotype,Palatino,Georgia,"Times New Roman",serif;
+    font-weight:600;
+    font-size:1.72rem;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--ink);
+    text-wrap:balance;
+  }
+  .subtitle{
+    color:var(--ink-soft);
+    font-size:0.92rem;
+    margin:0;
+    max-width:46ch;
+  }
+  .lang-toggle{
+    display:flex;
+    border:1px solid var(--brass);
+    border-radius:999px;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+  .lang-toggle button{
+    border:none;
+    background:transparent;
+    color:var(--brass-strong);
+    padding:7px 16px;
+    cursor:pointer;
+    font-size:0.78rem;
+    letter-spacing:.06em;
+    font-weight:700;
+  }
+  .lang-toggle button:focus-visible{outline:2px solid var(--brass);outline-offset:2px;}
+  .lang-toggle button.active{background:var(--brass);color:var(--paper-raised);}
+
+  .banner{
+    background:var(--brass-tint);
+    border:1px solid var(--brass);
+    color:var(--ink);
+    padding:11px 15px;
+    border-radius:4px;
+    font-size:0.86rem;
+    margin-bottom:22px;
+    display:none;
+  }
+  .banner.show{display:block;}
+
+  .dossier{margin-bottom:8px;}
+  .card{
+    padding:26px 0 22px;
+    border-bottom:1px solid var(--line);
+  }
+  .card:last-of-type{border-bottom:none;}
+  .card h2{
+    font-family:Iowan Old Style,Palatino Linotype,Palatino,Georgia,serif;
+    font-weight:600;
+    font-size:1.05rem;
+    color:var(--ink);
+    margin:0 0 4px;
+  }
+  .section-rule{
+    width:38px;height:2px;background:var(--brass);
+    margin-bottom:18px;border:none;
+  }
+
+  .field{margin-bottom:20px;}
+  label{
+    display:block;
+    font-size:0.78rem;
+    letter-spacing:.03em;
+    font-weight:600;
+    color:var(--ink-soft);
+    margin-bottom:7px;
+    text-transform:uppercase;
+  }
+  label .opt{font-weight:400;text-transform:none;color:var(--ink-soft);opacity:.75;}
+  .hint{font-size:0.78rem;color:var(--ink-soft);margin-top:6px;}
+
+  input[type=text],input[type=email],input[type=tel],input[type=url],select{
+    width:100%;
+    padding:9px 2px 10px;
+    border:none;
+    border-bottom:1px solid var(--line);
+    border-radius:0;
+    font-size:0.98rem;
+    background:transparent;
+    color:var(--ink);
+    font-family:inherit;
+  }
+  select{
+    appearance:none;
+    background-image:var(--select-arrow);
+    background-repeat:no-repeat;
+    background-position:right 4px center;
+    padding-right:18px;
+  }
+  input::placeholder{color:var(--ink-soft);opacity:.55;}
+  input:focus,select:focus{
+    outline:none;
+    border-bottom:1.5px solid var(--brass);
+  }
+  input:focus-visible,select:focus-visible{
+    outline:2px solid var(--brass);outline-offset:2px;border-radius:2px;
+  }
+  .row2{display:flex;gap:22px;}
+  .row2 .col{flex:1;}
+  .row-phone{display:flex;gap:12px;}
+  .row-phone select{flex:0 0 96px;}
+  .row-phone input{flex:1;}
+
+  .radio-group{display:flex;gap:10px;flex-wrap:wrap;}
+  .radio-opt{
+    border:1px solid var(--brass);
+    border-radius:999px;
+    padding:8px 18px;
+    cursor:pointer;
+    font-size:0.86rem;
+    color:var(--brass-strong);
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .radio-opt input{margin:0;accent-color:var(--brass-strong);}
+  .radio-opt.checked{background:var(--brass);border-color:var(--brass);color:var(--paper-raised);}
+  .radio-opt:has(input:focus-visible){outline:2px solid var(--brass);outline-offset:2px;}
+
+  .file-drop{
+    border:1.5px dashed var(--brass);
+    border-radius:6px;
+    padding:18px;
+    text-align:center;
+    font-size:0.86rem;
+    color:var(--ink-soft);
+    cursor:pointer;
+    background:var(--paper-raised);
+  }
+  .file-drop:focus-visible{outline:2px solid var(--brass);outline-offset:2px;}
+  .file-drop.filled{border-style:solid;border-color:var(--forest);color:var(--forest);background:var(--forest-tint);}
+  input[type=file]{display:none;}
+
+  .err{color:var(--oxblood);font-size:0.78rem;margin-top:6px;display:none;}
+  .field.invalid input:not([type=file]),.field.invalid select{border-color:var(--oxblood);}
+  .field.invalid .err{display:block;}
+
+  .footer-bar{
+    position:sticky;
+    bottom:0;
+    background:linear-gradient(to bottom, transparent, var(--paper) 22%);
+    padding:22px 0 6px;
+  }
+  .submit-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  button.submit{
+    background:var(--brass);
+    color:var(--paper-raised);
+    border:none;
+    padding:14px 30px;
+    border-radius:2px;
+    font-size:0.86rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-weight:700;
+    cursor:pointer;
+  }
+  button.submit:hover:not(:disabled){background:var(--brass-strong);}
+  button.submit:focus-visible{outline:2px solid var(--paper);outline-offset:2px;}
+  button.submit:disabled{background:var(--line);color:var(--ink-soft);cursor:not-allowed;}
+  button.clear-draft{
+    background:none;
+    border:none;
+    color:var(--brass);
+    padding:8px 0;
+    font-size:0.82rem;
+    text-decoration:underline;
+    text-underline-offset:3px;
+    cursor:pointer;
+  }
+  button.clear-draft:focus-visible{outline:2px solid var(--brass);outline-offset:2px;}
+  .progress-note{font-size:0.82rem;color:var(--ink-soft);}
+  .status-msg{
+    margin-top:16px;
+    padding:12px 15px;
+    border-radius:4px;
+    font-size:0.9rem;
+    display:none;
+  }
+  .status-msg.sending{display:block;background:var(--brass-tint);color:var(--ink);}
+  .status-msg.ok{display:block;background:var(--forest-tint);color:var(--forest);border:1px solid var(--forest);}
+  .status-msg.fail{display:block;background:var(--oxblood-tint);color:var(--oxblood);border:1px solid var(--oxblood);}
+
+  .colophon{
+    text-align:center;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:26px 0 0;
+    opacity:.7;
+  }
+</style>
+
+<div class="frame">
+<div class="wrap">
+
+  <header>
+    <div>
+      <span class="eyebrow" data-t="eyebrow">Dossier de candidature</span>
+      <h1 data-t="title">Candidature Artiste — International</h1>
+      <p class="subtitle" data-t="subtitle">Musiciens &amp; chanteurs disponibles pour des engagements à l'international</p>
+    </div>
+    <div class="lang-toggle">
+      <button type="button" id="btn-fr" class="active">FR</button>
+      <button type="button" id="btn-en">EN</button>
+    </div>
+  </header>
+
+  <div class="banner" id="draft-banner">
+    <span data-t="draftBanner">Un brouillon a été restauré. Vous pouvez compléter les éléments manquants (par ex. le CV) puis envoyer.</span>
+  </div>
+
+  <form id="app-form" novalidate>
+
+    <div class="dossier">
+    <div class="card">
+      <h2 data-t="sectionIdentity">Identité</h2>
+      <hr class="section-rule">
+
+      <div class="row2">
+        <div class="field col" data-field="prenom">
+          <label data-t="firstName">Prénom(s) <span class="opt">*</span></label>
+          <input type="text" name="prenom" autocomplete="given-name" required>
+          <div class="err" data-t="errRequired">Ce champ est obligatoire.</div>
+        </div>
+        <div class="field col" data-field="nom">
+          <label data-t="lastName">Nom <span class="opt">*</span></label>
+          <input type="text" name="nom" autocomplete="family-name" required>
+          <div class="err" data-t="errRequired">Ce champ est obligatoire.</div>
+        </div>
+      </div>
+
+      <div class="field" data-field="instruments">
+        <label data-t="instruments">Instrument(s) <span class="opt">*</span></label>
+        <input type="text" name="instruments" placeholder="Piano, guitare, chant...">
+        <div class="hint" data-t="instrumentsHint">Séparez plusieurs instruments par une virgule.</div>
+        <div class="err" data-t="errRequired">Ce champ est obligatoire.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 data-t="sectionContact">Contact</h2>
+      <hr class="section-rule">
+
+      <div class="field" data-field="email">
+        <label data-t="email">Adresse e-mail <span class="opt">*</span></label>
+        <input type="email" name="email" autocomplete="email" placeholder="vous@exemple.com">
+        <div class="err" data-t="errEmail">Adresse e-mail invalide.</div>
+      </div>
+
+      <div class="field" data-field="phone">
+        <label data-t="phone">Numéro de téléphone (avec indicatif) <span class="opt">*</span></label>
+        <div class="row-phone">
+          <select name="phoneCode"></select>
+          <input type="tel" name="phoneNumber" placeholder="6 12 34 56 78">
+        </div>
+        <div class="err" data-t="errRequired">Ce champ est obligatoire.</div>
+      </div>
+
+      <div class="field" data-field="emergencyPhone">
+        <label data-t="emergencyPhone">Contact téléphonique d'urgence <span class="opt">*</span></label>
+        <div class="row-phone">
+          <select name="emergencyCode"></select>
+          <input type="tel" name="emergencyNumber" placeholder="6 12 34 56 78">
+        </div>
+        <div class="hint" data-t="emergencyHint">Un proche ou une personne à contacter en cas d'urgence.</div>
+        <div class="err" data-t="errRequired">Ce champ est obligatoire.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 data-t="sectionArtistic">Éléments artistiques &amp; administratifs</h2>
+      <hr class="section-rule">
+
+      <div class="field" data-field="youtube">
+        <label data-t="youtube">Lien YouTube d'une vidéo sur scène <span class="opt">*</span></label>
+        <input type="url" name="youtube" placeholder="https://www.youtube.com/watch?v=...">
+        <div class="err" data-t="errYoutube">Merci d'indiquer un lien YouTube valide.</div>
+      </div>
+
+      <div class="field" data-field="cv">
+        <label data-t="cv">CV (format PDF) <span class="opt">*</span></label>
+        <div class="file-drop" id="cv-drop" tabindex="0" data-t="cvDrop">Cliquez pour choisir un fichier PDF</div>
+        <input type="file" id="cv-input" accept="application/pdf">
+        <div class="hint" data-t="cvHint">5 Mo maximum conseillé.</div>
+        <div class="err" data-t="errRequired">Ce champ est obligatoire.</div>
+      </div>
+
+      <div class="field" data-field="intermittent">
+        <label data-t="intermittent">N° intermittent du spectacle <span class="opt" data-t="optional">(facultatif)</span></label>
+        <input type="text" name="intermittent" placeholder="Si applicable">
+      </div>
+
+      <div class="field" data-field="duration">
+        <label data-t="duration">Durée minimum de disponibilité <span class="opt">*</span></label>
+        <div class="radio-group">
+          <label class="radio-opt"><input type="radio" name="duration" value="3 mois"><span data-t="dur3">3 mois</span></label>
+          <label class="radio-opt"><input type="radio" name="duration" value="6 mois"><span data-t="dur6">6 mois</span></label>
+        </div>
+        <div class="err" data-t="errRequired">Ce champ est obligatoire.</div>
+      </div>
+    </div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="submit-row">
+        <button type="submit" class="submit" id="submit-btn" disabled data-t="submitBtn">Envoyer ma candidature</button>
+        <button type="button" class="clear-draft" id="clear-draft" data-t="clearDraft">Effacer le brouillon</button>
+        <span class="progress-note" id="progress-note"></span>
+      </div>
+      <div class="status-msg" id="status-msg"></div>
+    </div>
+
+  </form>
+
+  <p class="colophon">Faracha · Candidatures internationales</p>
+</div>
+</div>
+
+<script>
+(function(){
+
+  var APPS_SCRIPT_URL = "PREVIEW_ONLY_NO_SUBMIT";
+
+  var TR = {
+    fr: {
+      eyebrow: "Dossier de candidature",
+      title: "Candidature Artiste — International",
+      subtitle: "Musiciens & chanteurs disponibles pour des engagements à l'international",
+      draftBanner: "Un brouillon a été restauré. Vous pouvez compléter les éléments manquants (par ex. le CV) puis envoyer.",
+      sectionIdentity: "Identité",
+      firstName: "Prénom(s)",
+      lastName: "Nom",
+      instruments: "Instrument(s)",
+      instrumentsHint: "Séparez plusieurs instruments par une virgule.",
+      sectionContact: "Contact",
+      email: "Adresse e-mail",
+      phone: "Numéro de téléphone (avec indicatif)",
+      emergencyPhone: "Contact téléphonique d'urgence",
+      emergencyHint: "Un proche ou une personne à contacter en cas d'urgence.",
+      sectionArtistic: "Éléments artistiques & administratifs",
+      youtube: "Lien YouTube d'une vidéo sur scène",
+      cv: "CV (format PDF)",
+      cvDrop: "Cliquez pour choisir un fichier PDF",
+      cvHint: "5 Mo maximum conseillé.",
+      intermittent: "N° intermittent du spectacle",
+      optional: "(facultatif)",
+      duration: "Durée minimum de disponibilité",
+      dur3: "3 mois",
+      dur6: "6 mois",
+      submitBtn: "Envoyer ma candidature",
+      clearDraft: "Effacer le brouillon",
+      errRequired: "Ce champ est obligatoire.",
+      errEmail: "Adresse e-mail invalide.",
+      errYoutube: "Merci d'indiquer un lien YouTube valide.",
+      progressIncomplete: "champs restants avant de pouvoir envoyer",
+      progressReady: "Tout est complet, vous pouvez envoyer votre candidature.",
+      sending: "Envoi en cours...",
+      ok: "Candidature envoyée avec succès. Merci !",
+      fail: "L'envoi a échoué. Vérifiez votre connexion et réessayez, ou contactez-nous directement.",
+      confirmClear: "Effacer le brouillon enregistré ? Cette action est irréversible."
+    },
+    en: {
+      eyebrow: "Application dossier",
+      title: "Artist Application — International",
+      subtitle: "Musicians & singers available for international engagements",
+      draftBanner: "A draft was restored. You can complete anything missing (e.g. your CV) and then submit.",
+      sectionIdentity: "Identity",
+      firstName: "First name(s)",
+      lastName: "Last name",
+      instruments: "Instrument(s)",
+      instrumentsHint: "Separate multiple instruments with a comma.",
+      sectionContact: "Contact",
+      email: "Email address",
+      phone: "Phone number (with country code)",
+      emergencyPhone: "Emergency phone contact",
+      emergencyHint: "A relative or person to contact in case of emergency.",
+      sectionArtistic: "Artistic & administrative details",
+      youtube: "YouTube link of a live performance",
+      cv: "CV (PDF format)",
+      cvDrop: "Click to choose a PDF file",
+      cvHint: "5 MB maximum recommended.",
+      intermittent: "French intermittent performer number",
+      optional: "(optional)",
+      duration: "Minimum availability",
+      dur3: "3 months",
+      dur6: "6 months",
+      submitBtn: "Submit application",
+      clearDraft: "Clear draft",
+      errRequired: "This field is required.",
+      errEmail: "Invalid email address.",
+      errYoutube: "Please provide a valid YouTube link.",
+      progressIncomplete: "field(s) left before you can submit",
+      progressReady: "Everything is complete, you can submit your application.",
+      sending: "Sending...",
+      ok: "Application sent successfully. Thank you!",
+      fail: "Sending failed. Check your connection and try again, or contact us directly.",
+      confirmClear: "Clear the saved draft? This cannot be undone."
+    }
+  };
+
+  var COUNTRY_CODES = [
+    ["FR","+33"],["BE","+32"],["CH","+41"],["LU","+352"],["MC","+377"],
+    ["DE","+49"],["ES","+34"],["IT","+39"],["PT","+351"],["NL","+31"],
+    ["GB","+44"],["IE","+353"],["AT","+43"],["DK","+45"],["SE","+46"],
+    ["NO","+47"],["FI","+358"],["PL","+48"],["CZ","+420"],["GR","+30"],
+    ["RO","+40"],["HU","+36"],["IS","+354"],["EE","+372"],["LV","+371"],
+    ["LT","+370"],
+    ["US","+1"],["CA","+1"],["MX","+52"],["BR","+55"],["AR","+54"],
+    ["CL","+56"],["CO","+57"],["PE","+51"],
+    ["MA","+212"],["DZ","+213"],["TN","+216"],["SN","+221"],["CI","+225"],
+    ["CM","+237"],["ZA","+27"],["EG","+20"],
+    ["JP","+81"],["CN","+86"],["KR","+82"],["IN","+91"],["AE","+971"],
+    ["SA","+966"],["QA","+974"],["SG","+65"],["TH","+66"],["VN","+84"],
+    ["AU","+61"],["NZ","+64"],
+    ["TR","+90"],["RU","+7"],["UA","+380"]
+  ];
+
+  var lang = "fr";
+  var els = {
+    form: document.getElementById("app-form"),
+    submitBtn: document.getElementById("submit-btn"),
+    progressNote: document.getElementById("progress-note"),
+    statusMsg: document.getElementById("status-msg"),
+    draftBanner: document.getElementById("draft-banner"),
+    clearDraftBtn: document.getElementById("clear-draft"),
+    cvDrop: document.getElementById("cv-drop"),
+    cvInput: document.getElementById("cv-input")
+  };
+
+  var STORAGE_KEY = "candidature_artiste_draft_preview_emerald_bg_gold";
+  var cvFile = { name: null, mime: null, base64: null };
+
+  function applyLang(){
+    document.querySelectorAll("[data-t]").forEach(function(node){
+      var key = node.getAttribute("data-t");
+      if (TR[lang][key] !== undefined) node.textContent = TR[lang][key];
+    });
+    document.getElementById("btn-fr").classList.toggle("active", lang === "fr");
+    document.getElementById("btn-en").classList.toggle("active", lang === "en");
+    document.documentElement.lang = lang;
+    if (!cvFile.name) els.cvDrop.textContent = TR[lang].cvDrop;
+    updateProgress();
+  }
+  document.getElementById("btn-fr").addEventListener("click", function(){ lang="fr"; applyLang(); });
+  document.getElementById("btn-en").addEventListener("click", function(){ lang="en"; applyLang(); });
+
+  function fillCountrySelect(select, defaultCode){
+    COUNTRY_CODES.forEach(function(c){
+      var opt = document.createElement("option");
+      opt.value = c[1];
+      opt.textContent = c[0] + " " + c[1];
+      if (c[1] === defaultCode) opt.selected = true;
+      select.appendChild(opt);
+    });
+  }
+  fillCountrySelect(els.form.phoneCode, "+33");
+  fillCountrySelect(els.form.emergencyCode, "+33");
+
+  var REQUIRED_TEXT = ["prenom","nom","instruments"];
+
+  function fieldWrap(name){ return els.form.querySelector('[data-field="'+name+'"]'); }
+
+  function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function isValidYoutube(v){ return /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|shorts\/|live\/)|youtu\.be\/)[\w-]+/.test(v); }
+
+  function validateAll(showErrors){
+    var missing = 0;
+
+    REQUIRED_TEXT.forEach(function(name){
+      var input = els.form[name];
+      var ok = input.value.trim().length > 0;
+      if (!ok) missing++;
+      if (showErrors) fieldWrap(name).classList.toggle("invalid", !ok);
+    });
+
+    var emailOk = isValidEmail(els.form.email.value.trim());
+    if (!emailOk) missing++;
+    if (showErrors) fieldWrap("email").classList.toggle("invalid", !emailOk);
+
+    var phoneOk = els.form.phoneNumber.value.trim().length > 0;
+    if (!phoneOk) missing++;
+    if (showErrors) fieldWrap("phone").classList.toggle("invalid", !phoneOk);
+
+    var emergencyOk = els.form.emergencyNumber.value.trim().length > 0;
+    if (!emergencyOk) missing++;
+    if (showErrors) fieldWrap("emergencyPhone").classList.toggle("invalid", !emergencyOk);
+
+    var ytOk = isValidYoutube(els.form.youtube.value.trim());
+    if (!ytOk) missing++;
+    if (showErrors) fieldWrap("youtube").classList.toggle("invalid", !ytOk);
+
+    var cvOk = !!cvFile.base64;
+    if (!cvOk) missing++;
+    if (showErrors) fieldWrap("cv").classList.toggle("invalid", !cvOk);
+
+    var durationOk = !!els.form.duration.value;
+    if (!durationOk) missing++;
+    if (showErrors) fieldWrap("duration").classList.toggle("invalid", !durationOk);
+
+    return missing;
+  }
+
+  function updateProgress(){
+    var missing = validateAll(false);
+    els.submitBtn.disabled = missing > 0;
+    if (missing > 0){
+      els.progressNote.textContent = missing + " " + TR[lang].progressIncomplete;
+    } else {
+      els.progressNote.textContent = TR[lang].progressReady;
+    }
+  }
+
+  els.form.querySelectorAll('input[name="duration"]').forEach(function(r){
+    r.addEventListener("change", function(){
+      els.form.querySelectorAll(".radio-opt").forEach(function(o){ o.classList.remove("checked"); });
+      r.closest(".radio-opt").classList.add("checked");
+      updateProgress();
+      saveDraft();
+    });
+  });
+
+  els.cvDrop.addEventListener("click", function(){ els.cvInput.click(); });
+  els.cvDrop.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); els.cvInput.click(); } });
+  els.cvInput.addEventListener("change", function(){
+    var f = els.cvInput.files[0];
+    if (!f) return;
+    if (f.type !== "application/pdf"){
+      alert(lang==="fr" ? "Merci de sélectionner un fichier PDF." : "Please select a PDF file.");
+      els.cvInput.value = "";
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(){
+      var result = reader.result;
+      cvFile.name = f.name;
+      cvFile.mime = f.type;
+      cvFile.base64 = result.split(",")[1];
+      els.cvDrop.textContent = (lang==="fr" ? "Fichier sélectionné : " : "File selected: ") + f.name;
+      els.cvDrop.classList.add("filled");
+      updateProgress();
+      saveDraft();
+    };
+    reader.readAsDataURL(f);
+  });
+
+  var saveTimer = null;
+  function saveDraft(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      var data = {
+        lang: lang,
+        prenom: els.form.prenom.value,
+        nom: els.form.nom.value,
+        instruments: els.form.instruments.value,
+        email: els.form.email.value,
+        phoneCode: els.form.phoneCode.value,
+        phoneNumber: els.form.phoneNumber.value,
+        emergencyCode: els.form.emergencyCode.value,
+        emergencyNumber: els.form.emergencyNumber.value,
+        youtube: els.form.youtube.value,
+        intermittent: els.form.intermittent.value,
+        duration: els.form.duration.value,
+        cvFile: cvFile
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch(e) {
+        try {
+          data.cvFile = { name: cvFile.name, mime: cvFile.mime, base64: null };
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch(e2){ }
+      }
+    }, 400);
+  }
+
+  function loadDraft(){
+    var raw;
+    try { raw = localStorage.getItem(STORAGE_KEY); } catch(e){ return; }
+    if (!raw) return;
+    var data;
+    try { data = JSON.parse(raw); } catch(e){ return; }
+
+    if (data.lang) lang = data.lang;
+    els.form.prenom.value = data.prenom || "";
+    els.form.nom.value = data.nom || "";
+    els.form.instruments.value = data.instruments || "";
+    els.form.email.value = data.email || "";
+    if (data.phoneCode) els.form.phoneCode.value = data.phoneCode;
+    els.form.phoneNumber.value = data.phoneNumber || "";
+    if (data.emergencyCode) els.form.emergencyCode.value = data.emergencyCode;
+    els.form.emergencyNumber.value = data.emergencyNumber || "";
+    els.form.youtube.value = data.youtube || "";
+    els.form.intermittent.value = data.intermittent || "";
+    if (data.duration){
+      var r = els.form.querySelector('input[name="duration"][value="'+data.duration+'"]');
+      if (r){ r.checked = true; r.closest(".radio-opt").classList.add("checked"); }
+    }
+    if (data.cvFile && data.cvFile.base64){
+      cvFile = data.cvFile;
+      els.cvDrop.textContent = (lang==="fr" ? "Fichier sélectionné : " : "File selected: ") + cvFile.name;
+      els.cvDrop.classList.add("filled");
+    } else if (data.cvFile && data.cvFile.name){
+      els.cvDrop.textContent = lang==="fr"
+        ? "Merci de re-sélectionner le fichier PDF (" + data.cvFile.name + ")"
+        : "Please re-select the PDF file (" + data.cvFile.name + ")";
+    }
+
+    els.draftBanner.classList.add("show");
+    applyLang();
+  }
+
+  els.form.addEventListener("input", function(){ updateProgress(); saveDraft(); });
+  els.form.addEventListener("change", function(){ updateProgress(); saveDraft(); });
+
+  els.clearDraftBtn.addEventListener("click", function(){
+    if (!confirm(TR[lang].confirmClear)) return;
+    localStorage.removeItem(STORAGE_KEY);
+    els.form.reset();
+    cvFile = { name:null, mime:null, base64:null };
+    els.cvDrop.textContent = TR[lang].cvDrop;
+    els.cvDrop.classList.remove("filled");
+    els.form.querySelectorAll(".radio-opt").forEach(function(o){ o.classList.remove("checked"); });
+    els.draftBanner.classList.remove("show");
+    updateProgress();
+  });
+
+  els.form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var missing = validateAll(true);
+    if (missing > 0){ updateProgress(); return; }
+
+    els.statusMsg.className = "status-msg ok";
+    els.statusMsg.textContent = lang === "fr"
+      ? "Aperçu de design uniquement — aucun envoi réel n'est effectué ici."
+      : "Design preview only — no real submission happens here.";
+  });
+
+  loadDraft();
+  applyLang();
+  updateProgress();
+
+})();
+</script>
